@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({isAuthenticated}) => {
+const Navbar = ({ isAuthenticated, user }) => {
     return (
         <div>
             <nav className="main-nav">
@@ -16,20 +16,22 @@ const Navbar = ({isAuthenticated}) => {
                 </Link>
 
                 <div>
-                    <Link className="main-nav-item" to="/profile">
-                        <i className="fa fa-user-circle"></i>
-                        Profile
-                    </Link>
                     {
-                        isAuthenticated 
-                        ? <Link className="main-nav-item" to="/logout">
-                        <i className="fa fa-user-circle"></i>
-                        Logout
-                    </Link>
-                        : <Link className="main-nav-item" to="/sign-in">
-                        <i className="fa fa-user-circle"></i>
-                        Sign In
-                    </Link>
+                        isAuthenticated
+                            ? <>
+                                <Link className="main-nav-item" to="/profile">
+                                    <i className="fa fa-user-circle"></i>
+                                    {user.firstName}
+                                </Link>
+                                <Link className="main-nav-item" to="/logout">
+                                    <i className="fa fa-sign-out"></i>
+                                    Sign out
+                                </Link>
+                            </>
+                            : <Link className="main-nav-item" to="/sign-in">
+                                <i className="fa fa-user-circle"></i>
+                                Sign In
+                            </Link>
                     }
                 </div>
             </nav>
@@ -38,7 +40,8 @@ const Navbar = ({isAuthenticated}) => {
 }
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.AuthReducer.isAuthenticated
+        isAuthenticated: state.AuthReducer.isAuthenticated,
+        user: { ...state.UserReducer.user }
     }
 }
 export default connect(mapStateToProps)(Navbar) 

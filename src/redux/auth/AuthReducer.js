@@ -2,7 +2,6 @@ import { AUTH_LOGIN_ATTEMPT, AUTH_LOGIN_FAILURE, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT
 
 const initialState = {
     token: null,
-    user: null,
     isAuthenticated: false,
     isLoading: false
 }
@@ -15,7 +14,6 @@ const AuthReducer = (state = initialState, action) => {
                 isLoading: true
             }
         case AUTH_LOGIN_SUCCESS:
-            console.log(action.payload)
             return {
                 ...state,
                 token: action.payload,

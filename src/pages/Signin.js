@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Navigate } from 'react-router-dom';
 import { login } from "../redux/auth/AuthActions";
+import { setUserData } from "../redux/user/UserActions";
 
 export class Signin extends Component {
     constructor(props) {
@@ -51,6 +52,9 @@ export class Signin extends Component {
         }
 
         await this.props.login(user)
+        if(this.props.authToken){
+            await this.props.setUserData(this.props.authToken)
+        } 
     }
     
     checkForErrors() {
@@ -113,8 +117,9 @@ export class Signin extends Component {
 
 const mapStateToProps = state => {
     return {
+        authToken: state.AuthReducer.token,
         isLoading: state.AuthReducer.isLoading,
         isAuthenticated: state.AuthReducer.isAuthenticated
     }
 }
-export default connect(mapStateToProps, { login })(Signin) 
+export default connect(mapStateToProps, { login, setUserData })(Signin) 
