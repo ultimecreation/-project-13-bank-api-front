@@ -1,7 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({isAuthenticated}) => {
     return (
         <div>
             <nav className="main-nav">
@@ -19,14 +20,25 @@ const Navbar = () => {
                         <i className="fa fa-user-circle"></i>
                         Profile
                     </Link>
-                    <Link className="main-nav-item" to="/sign-in">
+                    {
+                        isAuthenticated 
+                        ? <Link className="main-nav-item" to="/logout">
+                        <i className="fa fa-user-circle"></i>
+                        Logout
+                    </Link>
+                        : <Link className="main-nav-item" to="/sign-in">
                         <i className="fa fa-user-circle"></i>
                         Sign In
                     </Link>
+                    }
                 </div>
             </nav>
         </div>
     )
 }
-
-export default Navbar
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.AuthReducer.isAuthenticated
+    }
+}
+export default connect(mapStateToProps)(Navbar) 

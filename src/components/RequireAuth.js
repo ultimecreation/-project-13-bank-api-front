@@ -1,11 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
-const RequireAuth = ({ children }) => {
-    const isLoggedIn = false
+const RequireAuth = ({ isAuthenticated, children }) => {
 
-    if (!isLoggedIn) return <Navigate replace to="/" />
+    if (!isAuthenticated) return <Navigate replace to="/" />
     return children
 }
 
-export default RequireAuth
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.AuthReducer.isAuthenticated
+    }
+}
+export default connect(mapStateToProps)(RequireAuth) 

@@ -1,25 +1,28 @@
-import { AUTH_LOGIN_ATTEMPT, AUTH_LOGIN_FAILURE, AUTH_LOGIN_SUCCESS } from "./AuthTypes"
+import { AUTH_LOGIN_ATTEMPT, AUTH_LOGIN_FAILURE, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT } from "./AuthTypes"
 
 const initialState = {
+    token: null,
     user: null,
     isAuthenticated: false,
-    isLoading: false 
+    isLoading: false
 }
 
 const AuthReducer = (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case AUTH_LOGIN_ATTEMPT:
             return {
                 ...state,
                 isLoading: true
             }
         case AUTH_LOGIN_SUCCESS:
+            console.log(action.payload)
             return {
                 ...state,
-                user: {...action.payload},
+                token: action.payload,
                 isAuthenticated: true,
-                isLoading: false 
+                isLoading: false
             }
+        case AUTH_LOGOUT:
         case AUTH_LOGIN_FAILURE:
             return {
                 ...state,
