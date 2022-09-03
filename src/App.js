@@ -5,7 +5,7 @@ import Navbar from "./layout/Navbar";
 import Home from "./pages/Home";
 import Logout from "./pages/Logout";
 import Signin from "./pages/Signin";
-import UserProfile from "./pages/UserProfile";
+import UserDisplayProfile from "./pages/UserDisplayProfile";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/logout" element={<Logout />}/>
           <Route path="/sign-in" element={<Signin />}/>
-          <Route path="/profile" element={<RequireAuth><UserProfile/></RequireAuth>} />
+          <Route path="/profile" element={<RequireAuth><UserDisplayProfile/></RequireAuth>} />
         </Routes>
         <Footer />
       </BrowserRouter>

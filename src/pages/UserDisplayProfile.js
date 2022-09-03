@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import UserUpdateProfileForm from './UserUpdateProfileForm'
 
-const UserProfile = () => {
+const UserDisplayProfile =  ({user}) => {
+    const [editMode, setEditMode] = useState(false)
+   
     return (
         <main className="main bg-dark">
             <div className="header">
-                <h1>Welcome back<br />Tony Jarvis!</h1>
-                <button className="edit-button">Edit Name</button>
+                <h1>Welcome back<br />
+                    {!editMode && user && `${user?.firstName} ${user?.lastName}!`}
+                </h1>
+                {!editMode 
+                    ? <button className="edit-button" onClick={()=>setEditMode(!editMode)}>Edit Name</button>
+                    : <UserUpdateProfileForm currentFirstName={user.firstName} currentLastName={user.lastName} handleSetEditMode={setEditMode}/>
+                }
+               
             </div>
             <h2 className="sr-only">Accounts</h2>
             <section className="account">
@@ -41,5 +51,10 @@ const UserProfile = () => {
         </main>
     )
 }
-
-export default UserProfile
+const mapStateToProps =  state => {
+    return {
+        user:  state.UserReducer.user
+    }
+   
+}
+export default connect(mapStateToProps)(UserDisplayProfile) 
