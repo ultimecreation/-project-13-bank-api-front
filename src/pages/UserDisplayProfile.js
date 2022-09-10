@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import UserUpdateProfileForm from './UserUpdateProfileForm'
+import UserUpdateProfileForm from '../components/UserUpdateProfileForm'
 
 const UserDisplayProfile =  ({user}) => {
     const [editMode, setEditMode] = useState(false)
