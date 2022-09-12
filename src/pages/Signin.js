@@ -52,6 +52,10 @@ export class Signin extends Component {
         }
 
         await this.props.login(user)
+        if(!this.props.authToken){
+            this.errors.push({errorText: "authentication failed"})
+            this.checkForErrors()
+        }
         if(this.props.authToken){
             await this.props.setUserData(this.props.authToken)
         } 
